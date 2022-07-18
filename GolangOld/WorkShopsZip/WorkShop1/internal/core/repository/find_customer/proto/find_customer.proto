@@ -1,0 +1,94 @@
+syntax = "proto3";
+
+package customer;
+
+service FindCustomerService {
+	rpc FindCustomer(FindRequest) returns (Customer);
+}
+
+message FindRequest {
+	Document document = 1;
+	string country = 2;
+}
+
+message Customer {
+    Person person = 1;
+	bool is_employee = 2;
+	repeated Address address = 3;
+	repeated Telephone telephone = 4;
+	repeated Email email =5;
+}
+
+message Person  {
+	Document document = 1;       
+	string first_name = 2;       
+	string middle_name = 3;      
+	string aditional_name = 4;   
+	string last_surname = 5;     
+	string aditional_surname = 6; 
+	string full_name = 7;        
+	string names = 8;           
+	string gender = 9;           
+	string birth_date = 10;
+	string nationality = 11;     
+	string marital_status = 12;   
+}
+
+message Address {
+	string type_address = 1;
+	string full_address = 2;
+	string zip_code = 3;
+	string street_name = 4; 
+	string street_number = 5;          
+	string floor = 6;                
+	string apartment = 7;           
+	string aditional_information = 8;
+	Country country = 9;             
+	State state = 10;
+	City city = 11;                 
+	Township township = 12;             
+	Town town = 13; 
+}
+
+message Country {
+	string id = 1;
+	string name = 2;
+}
+
+message State {
+	string id = 1;
+	string name = 2;
+}
+
+message City {
+	string id = 1;
+	string name = 2;
+}
+
+message Township {
+	string id = 1;
+	string name = 2;
+}
+
+message Town  {
+	string id = 1;
+	string name = 2;
+}
+
+message Telephone {
+	string type_telephone = 1;
+	string number = 2;
+    string areaCode = 3;
+	string country_code = 4;
+}
+
+message Email {
+    string type_email = 1;
+    string preferred_email_flag = 2;
+    string email_address = 3;
+}
+
+message Document {
+    string type_document = 1;
+    string number = 2;
+}

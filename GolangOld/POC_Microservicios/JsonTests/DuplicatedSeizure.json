@@ -1,0 +1,42 @@
+{
+    "Seizure": [{
+        "Customer": [{
+            "FirstName": "Angela",
+            "MiddleName": "Janneth",
+            "Surname": "Mora",
+            "LastSurname": "Gomez",
+            "Document": [{
+                "DocumentType": "Cedula",
+                "DocumentNumber": "70789456"
+            }]        
+        }]
+    }],
+    "SeizureInformation":[{
+        "Concept": 1,
+        "SeizureType": 2,
+        "DebitForm": 3,
+        "ReceptionDate": "04-12-2019",
+        "ProcessNumber": "10",
+        "Amount": 1000000,
+        "City": "Bogota",
+        "Address": "Carrera 5 # 5-55",
+        "JudicialAccount": "2",
+        "Entity": "Banco",
+        "SeizureDate": "16-12-2019",
+        "Plaintiff": [{
+            "FirstName": "Rafael",
+            "MiddleName": "Antonio",
+            "Surname": "Letrado",
+            "LastSurname": "Ayala",
+            "Document": [{
+                "DocumentType": "Cedula",
+                "DocumentNumber": "987654321"
+            }]  
+        }]
+    }], 
+    "ProductName": [{
+        "ProductID": "1",
+        "ProductState": "Activo"
+    }] 
+    
+}

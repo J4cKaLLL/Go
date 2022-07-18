@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: obtener-cliente-dom-configmap
+  labels:
+    country: argentina
+    role: domain
+    domain: customer
+    app: customer
+data:
+  config: |-
+    repository:
+      client:
+      - service: "Find"
+        ip : "obtener-cliente-comp-svc"
+        port: "50001"

@@ -1,0 +1,188 @@
+openapi: 3.0.0
+info:
+  version: '1.0'
+  title: 'SeizureAPI'
+  description: 'seizure POC API'
+tags:
+  - name: Admin
+paths: 
+# Added by API Auto Mocking Plugin
+  '/CreateSeizure':
+    post:
+      summary: Create a Seizure Register
+      parameters:
+        - $ref: "#/components/parameters/x-country"
+        - $ref: "#/components/parameters/x-channel"
+        - $ref: "#/components/parameters/x-commerce"
+      tags:
+        - Admin
+      description: Create Seizure
+      operationId: CreateSeizure
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationState'
+        '400':
+          description: Bad request. User ID must be an integer and larger than 0.
+        '401':
+          description: Authorization information is missing or invalid.
+        '404':
+          description: A user with the specified ID was not found.
+        '505':
+          description: Unexpected error.
+      requestBody:
+        $ref: '#/components/requestBodies/Seizure'
+components:
+  schemas:
+    Seizure:
+      description: Seizures
+      type: object
+      properties:
+        customer:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/client'
+        seizureInformation:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/seizureInfo'
+          properties:
+            plaintiff:
+              type: object
+              allOf:
+                - $ref: '#/components/schemas/client'
+        product:
+          type: object
+          properties:
+            productId:
+              type: integer
+              example: 1
+            productState:
+              type: string
+              example: Active
+    document:
+      type: object
+      properties:
+        documentType:
+          type: string
+          example: Cedula
+        documentNumber:
+          type: string
+          example: 1022331250
+    client:
+      type: object
+      properties:
+        firstName:
+          type: string
+          example: Eder
+        middleName: 
+          type: string
+          example: Leandro
+        surname: 
+          type: string
+          example: Rubiano
+        lastSurname:
+          type: string
+          example: Camelo
+        document:
+          $ref: '#/components/schemas/document'
+    seizureInfo:
+      type: object
+      properties:
+        concept:
+          type: integer
+          example: Concepto del embargo
+        seizureType:
+          type: integer
+          example: Tipo de embargo
+        debitForm:
+          type: integer
+          example: Forma debito
+        receptionDate:
+          type: string
+          example: Fecha en la que se recibio el embargo
+        processNumber:
+          type: string
+          example: Numero de proceso
+        amount:
+          type: number
+          example: Valor del embargo
+        city:
+          type: string
+          example: ciudad de embargo
+        address:
+          type: string
+          example: direccion de embargo
+        judicialAccount:
+          type: string
+          example: cuenta judicial
+        entity:
+          type: string
+          example: entidad
+        seizureDate:
+          type: integer
+          example: Fecha de embargo
+    OperationState:
+      type: object
+      properties:
+        operationCode:
+          type: string
+          example: 1
+        operationDescription: 
+          type: string
+          example: Successful operation
+  parameters:
+    x-commerce:
+      in: header
+      name: x-commerce
+      description: Comercio
+      schema:
+        type: string
+        enum:
+          - BANCO
+          - CMR
+          - FALABELLA
+      required: true
+    x-country:
+      in: header
+      name: x-country
+      description: Pais
+      schema:
+        type: string
+        enum:
+          - AR
+          - CL
+          - CO
+          - PE
+          - UY
+          - MX
+      required: true
+    x-channel:
+      in: header
+      name: x-channel
+      description: Canal
+      schema:
+        type: string
+        enum:
+          - Web
+          - Mobile
+          - Kiosco
+  requestBodies:
+    Seizure:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Seizure'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/Seizure'
+      description: Request
+      required: true
+# Added by API Auto Mocking Plugin
+servers:
+# Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/J4cKaLLL/SeizureAPI_POC/1.0
