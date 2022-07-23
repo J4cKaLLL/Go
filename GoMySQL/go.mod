@@ -1,4 +1,4 @@
-module github.com/J4cKaLLL/GoMySQL
+module github.com/J4cKaLLL/Go/GoMySQL
 
 go 1.13
 

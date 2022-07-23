@@ -1,7 +1,7 @@
 package models
 
 import (
-	"github.com/J4cKaLLL/MySQL/pkg/config"
+	"github.com/J4cKaLLL/Go/GoMySQL/pkg/config"
 	"github.com/jinzhu/gorm"
 )
 
@@ -11,12 +11,12 @@ type Book struct {
 	gorm.Model
 	Name        string `gorm:json:"name"`
 	Author      string `json:"author"`
-	Publicacion string `json:"publication"`
+	Publication string `json:"publication"`
 }
 
 func init() {
 	config.Connect()
-	db = config.getDB()
+	db = config.GetDB()
 	db.AutoMigrate(&Book{})
 }
 

@@ -6,14 +6,14 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/J4cKaLLL/GoMySQL/pkg/models"
-	"github.com/J4cKaLLL/GoMySQL/pkg/utils"
+	"github.com/J4cKaLLL/Go/GoMySQL/pkg/models"
+	"github.com/J4cKaLLL/Go/GoMySQL/pkg/utils"
 	"github.com/gorilla/mux"
 )
 
 var NewBook models.Book
 
-func getBook(w http.ResponseWriter, r *http.Request) {
+func GetBook(w http.ResponseWriter, r *http.Request) {
 	newBooks := models.GetAllBooks()
 	res, _ := json.Marshal(newBooks)
 	w.Header().Set("Content-Type", "pkglication/json")
@@ -21,7 +21,7 @@ func getBook(w http.ResponseWriter, r *http.Request) {
 	w.Write(res)
 }
 
-func getBookById(w http.ResponseWriter, r *http.Request) {
+func GetBookById(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	bookId := vars["bookId"]
 	ID, err := strconv.ParseInt(bookId, 0, 0)
@@ -30,7 +30,7 @@ func getBookById(w http.ResponseWriter, r *http.Request) {
 	}
 
 	bookDetails, _ := models.GetBookById(ID)
-	res, _ := json.Marshal(BookDetails)
+	res, _ := json.Marshal(bookDetails)
 	w.Header().Set("Content-Type", "pkglication/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(res)
@@ -46,7 +46,7 @@ func CreateBook(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeleteBook(w http.ResponseWriter, r *http.Request) {
-	vars := mux.vars(r)
+	vars := mux.Vars(r)
 	bookId := vars["bookId"]
 	ID, err := strconv.ParseInt(bookId, 0, 0)
 	if err != nil {
@@ -62,13 +62,12 @@ func UpdateBook(w http.ResponseWriter, r *http.Request) {
 	var updateBook = &models.Book{}
 	utils.ParseBody(r, updateBook)
 	vars := mux.Vars(r)
-bookId:
-	vars["bookId"]
+	bookId := vars["bookId"]
 	ID, err := strconv.ParseInt(bookId, 0, 0)
 	if err != nil {
 		fmt.Println("error while parsing")
 	}
-	booksDetails, db := models.GetBookByID(ID)
+	bookDetails, db := models.GetBookById(ID)
 	if updateBook.Name != "" {
 		bookDetails.Name = updateBook.Name
 	}
@@ -78,11 +77,11 @@ bookId:
 	}
 
 	if updateBook.Publication != "" {
-		bookDetails.Publication = update.Publication
+		bookDetails.Publication = updateBook.Publication
 	}
 	db.Save(&bookDetails)
 
-	res, _ := jseon.Marshal(bookDetails)
+	res, _ := json.Marshal(bookDetails)
 	w.Header().Set("Content-Type", "pkglication/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(res)
