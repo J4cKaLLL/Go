@@ -9,6 +9,7 @@ import (
 )
 
 func main() {
+	// Obtiene un puntero de mux.Router
 	r := mux.NewRouter()
 	routes.RegisterBookStoreRoutes(r)
 	http.Handle("/", r)
