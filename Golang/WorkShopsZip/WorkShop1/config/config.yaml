@@ -1,0 +1,5 @@
+repository:
+  client:
+    - service: "find"
+      ip : "localhost"
+      port: "50010"

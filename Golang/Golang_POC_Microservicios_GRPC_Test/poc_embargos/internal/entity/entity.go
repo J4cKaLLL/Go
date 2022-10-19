@@ -1,0 +1,68 @@
+package entity
+
+// Seizure estructura que muestra las variables de Embargos
+type Seizure struct {
+	Customer           Client      `json:"customer"`
+	SeizureInformation SeizeInfo   `json:"seizureInformation"`
+	Product            ProductName `json:"product"`
+}
+
+// DocumentInfo tipo y numero de documento del cliente
+type DocumentInfo struct {
+	DocumentType   string `json:"documentType"`
+	DocumentNumber string `json:"documentNumber"`
+}
+
+// DocumentApplicantInfo tipo y numero de documento
+type DocumentApplicantInfo struct {
+	DocumentType   string `json:"documentType"`
+	DocumentNumber string `json:"documentNumber"`
+}
+
+// Client Datos de cliente
+type Client struct {
+	FirstName   string       `json:"firstName"`
+	MiddleName  string       `json:"middleName"`
+	Surname     string       `json:"surname"`
+	LastSurname string       `json:"lastSurname"`
+	Document    DocumentInfo `json:"document"`
+}
+
+// Applicant Datos de cliente
+type Applicant struct {
+	FirstName   string                `json:"firstName"`
+	MiddleName  string                `json:"middleName"`
+	Surname     string                `json:"surname"`
+	LastSurname string                `json:"lastSurname"`
+	Document    DocumentApplicantInfo `json:"document"`
+}
+
+// SeizeInfo Informacion de embargo
+type SeizeInfo struct {
+	Concept         int       `json:"concept"`
+	SeizureType     int       `json:"seizureType"`
+	DebitForm       int       `json:"debitForm"`
+	ReceptionDate   string    `json:"receptionDate"`
+	ProcessNumber   string    `json:"processNumber"`
+	Amount          int       `json:"amount"`
+	City            string    `json:"city"`
+	Address         string    `json:"address"`
+	JudicialAccount string    `json:"judicialAccount"`
+	Entity          string    `json:"entity"`
+	SeizureDate     string    `json:"seizureDate"`
+	Plaintiff       Applicant `json:"plaintiff"`
+}
+
+// ProductName informacion de producto
+type ProductName struct {
+	ProductID    string `json:"productID"`
+	ProductState string `json:"productState"`
+}
+
+
+// SeizureResp informacion de respuesta
+type SeizureResp struct {
+	Codigo    string `json:"codigo"`
+	Error string `json:"error"`
+	Mensaje string `json:"mensaje"`
+}

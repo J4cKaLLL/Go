@@ -1,0 +1,24 @@
+syntax = "proto3";
+ 
+option java_multiple_files = true;
+option java_package = "clientes";
+option java_outer_classname = "Clientes";
+option objc_class_prefix = "HLW";
+ 
+package clientes;
+ 
+service ClientesService {
+  rpc obtenerInfoCliente (ClientesRequest) returns (ClientesReply) {}
+}
+ 
+message ClientesRequest {
+  int32 id = 1;
+}
+ 
+message ClientesReply {
+  int32 id = 1;
+  string nombre = 2;
+  string apellidoPaterno = 3;
+  string apellidoMaterno = 4;
+  string documentoIdentidad = 5;
+}
