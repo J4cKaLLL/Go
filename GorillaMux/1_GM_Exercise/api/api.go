@@ -3,34 +3,39 @@ package api
 import (
 	"encoding/json"
 	"net/http"
-	"strconv"
+
+	"github.com/gorilla/schema"
 )
 
 type API struct{}
 
 type CryptosParams struct {
-	Limit int `schema: "limit"`
+	LimitMin int `schema: "limitMin"`
+	LimitMax int `schema: "limitMax"`
 }
 
-var cryptos = []string{"Bitcoin", "Ethereum", "Solana", "Polkadot", "USDT", "USDC", "DAI", "Avalanche", "Cardano"}
+var (
+	cryptos = []string{"Bitcoin", "Ethereum", "Solana", "Polkadot", "USDT", "USDC", "DAI", "Avalanche", "Cardano"}
+	decoder = schema.NewDecoder()
+)
 
 func (a *API) GetCryptos(w http.ResponseWriter, r *http.Request) {
-	limitMin := r.URL.Query().Get("limitMin")
-	limitMax := r.URL.Query().Get("limitMax")
-	lMin, err := strconv.Atoi(limitMin)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
-	lMax, err := strconv.Atoi(limitMax)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
-	if lMin < 0 || lMax > len(cryptos) {
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
-	json.NewEncoder(w).Encode(cryptos[lMin:lMax])
 
+	params := &CryptosParams{}
+	//var params CryptosParams
+
+	err := decoder.Decode(params, r.URL.Query())
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	if params.LimitMin < 0 || params.LimitMin > len(cryptos) {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	if params.LimitMax < 0 || params.LimitMax > len(cryptos) {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	json.NewEncoder(w).Encode(cryptos[params.LimitMin:params.LimitMax])
 }
