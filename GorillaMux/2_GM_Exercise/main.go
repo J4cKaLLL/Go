@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
-	api "github.com/J4cKaLLL/Go/GorillaMux/2_GM_EXERCISE/api"
+	api "exercise/api"
+
 	"github.com/gorilla/mux"
 )
 
